@@ -11,6 +11,7 @@ router.post('/newClient', (req, res, next) => {
         lastName,
         phone,
         email,
+        password,
         address: {
             street,
             zipCode,
@@ -20,7 +21,8 @@ router.post('/newClient', (req, res, next) => {
             latitude
         },
         image,
-        petNumber
+        pet,
+        request
     } = req.body
 
 
@@ -31,6 +33,7 @@ router.post('/newClient', (req, res, next) => {
             lastName,
             phone,
             email,
+            password,
             address: {
                 street,
                 zipCode,
@@ -42,19 +45,23 @@ router.post('/newClient', (req, res, next) => {
                 },
             },
             image,
-            petNumber
+            pet,
+            request
         })
         .then(newClient => res.status(201).json(newClient))
-        .catch(err => { next(err) })
+        .catch(err => {
+            next(err)
+        })
 
 })
+
 
 router.get('/:clientId', (req, res, next) => {
 
     const { clientId } = req.params
 
     if (!mongoose.Types.ObjectId.isValid(clientId)) {
-        res.status(400).json({ message: 'La identificación especificada no es válida' })
+        res.status(400).json({ message: 'Id de cliente no válido' })
         return
     }
 
@@ -62,8 +69,11 @@ router.get('/:clientId', (req, res, next) => {
         .findById(clientId)
         .populate('pet')
         .then(client => res.status(200).json(client))
-        .catch(err => { next(err) })
+        .catch(err => {
+            next(err)
+        })
 })
+
 
 router.put('/:clientId', (req, res, next) => {
 
@@ -74,6 +84,7 @@ router.put('/:clientId', (req, res, next) => {
         lastName,
         phone,
         email,
+        password,
         address: {
             street,
             zipCode,
@@ -83,11 +94,12 @@ router.put('/:clientId', (req, res, next) => {
             latitude
         },
         image,
-        petNumber
+        pet,
+        request
     } = req.body
 
     if (!mongoose.Types.ObjectId.isValid(clientId)) {
-        res.status(400).json({ message: 'La identificación especificada no es válida' })
+        res.status(400).json({ message: 'Id de cliente no válido' })
         return
     }
 
@@ -99,28 +111,29 @@ router.put('/:clientId', (req, res, next) => {
                 lastName,
                 phone,
                 email,
+                password,
                 address: {
                     street,
                     zipCode,
                     city,
                     country,
-                    location,
                     location: {
                         type: 'Point',
                         coordinates: [longitude, latitude]
                     },
                 },
                 image,
-                petNumber,
+                pet,
+                request
             },
             { new: true, runValidators: true }
         )
-        .then(updatedClient => {
-            console.log('---', req.body)
-            res.json(updatedClient)
+        .then(updatedClients => res.json(updatedClients))
+        .catch(err => {
+            next(err)
         })
-        .catch(err => { next(err) })
 })
+
 
 router.delete('/:clientId', (req, res, next) => {
 
@@ -130,7 +143,10 @@ router.delete('/:clientId', (req, res, next) => {
         .findByIdAndDelete(clientId)
         .populate('pet')
         .then(() => res.sendStatus(204))
-        .catch(err => { next(err) })
+        .catch(err => {
+            next(err)
+        })
 })
+
 
 module.exports = router

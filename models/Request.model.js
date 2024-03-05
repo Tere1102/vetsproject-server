@@ -1,8 +1,3 @@
-// QUIEN LA HACE (ID)
-// QUIEN LA RECIBE (ID)
-// PARA QUE ANIMAL (ID)
-// TEXTO DE LA PETICION
-// RESPUESTA DE LA PETICION
 
 const { Schema, model } = require('mongoose')
 

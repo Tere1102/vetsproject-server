@@ -32,6 +32,11 @@ const professionalSchema = new Schema(
             unique: true
         },
 
+        password: {
+            type: String,
+            //required: true
+        },
+
         clinic: {
 
             name: {

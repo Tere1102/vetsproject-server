@@ -2,15 +2,6 @@ const router = require("express").Router()
 const mongoose = require('mongoose')
 const Professional = require('./../models/professional.model.js')
 
-router.get('/', (req, res, next) => {
-
-    Request
-        .find()
-        .populate("client", "pet", "professional")
-        .then(allRequests => res.json(allRequests))
-        .catch(err => { next(err) })
-
-})
 
 router.post('/newRequest', (req, res, next) => {
 
@@ -18,25 +9,44 @@ router.post('/newRequest', (req, res, next) => {
 
     Request
         .create({ client, professional, pet, status, question, answer, image })
-        .populate("client", "pet", "professional")
-        .then(newRequest => res.json(newRequest))
-        .catch(err => { next(err) })
+        // .populate("client", "pet", "professional")
+        .then(newRequest => res.status(200).json(newRequest))
+        .catch(err => {
+            next(err)
+        })
 })
+
+
+router.get('/', (req, res, next) => {
+
+    Request
+        .find()
+        .populate("client", "pet", "professional")
+        .then(allRequests => res.status(201).json(allRequests))
+        .catch(err => {
+            next(err)
+        })
+
+})
+
 
 router.get('/requestId', (req, res, next) => {
 
     const { requestId } = req.params
 
     if (!mongoose.Types.ObjectId.isValid(requestId)) {
-        res.status(400).json({ message: "Specified id is not valid" })
+        res.status(400).json({ message: "Id de request no válido" })
         return
     }
     Request
         .findById(requestId)
         .populate("client", "pet", "professional")
-        .then(request => res.json(request))
-        .catch(err => { next(err) })
+        .then(request => res.status(200).json(request))
+        .catch(err => {
+            next(err)
+        })
 })
+
 
 router.put('/requestId', (req, res, next) => {
 
@@ -44,9 +54,10 @@ router.put('/requestId', (req, res, next) => {
     const { client, professional, pet, status, question, answer, image } = req.body
 
     if (!mongoose.Types.ObjectId.isValid(requestId)) {
-        res.status(400).json({ message: "Specified id is not valid" })
+        res.status(400).json({ message: "Id de request no válido" })
         return
     }
+
     Request
         .findByIdAndUpdate(
             requestId,
@@ -54,23 +65,29 @@ router.put('/requestId', (req, res, next) => {
             { new: true, runValidators: true }
                 .populate("client", "pet", "professional")
                 .then(updatedRequests => res.json(updatedRequests))
-                .catch(err => { next(err) })
+                .catch(err => {
+                    next(err)
+                })
         )
 })
+
 
 router.delete('/requestId', (req, res, next) => {
 
     const { requestId } = req.params
 
     if (!mongoose.Types.ObjectId.isValid(requestId)) {
-        res.status(400).json({ message: "Specified id is not valid" })
+        res.status(400).json({ message: "Id de request no válido" })
         return
     }
     Request
         .findByIdAndDelete(requestId)
         .populate("client", "pet", "professional")
         .then(() => res.sendStatus(204))
-        .catch(err => { next(err) })
+        .catch(err => {
+            next(err)
+        })
 })
+
 
 module.exports = router
