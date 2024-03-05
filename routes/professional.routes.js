@@ -11,6 +11,7 @@ router.post('/newProfessional', (req, res, next) => {
     membershipNumber,
     phone,
     email,
+    password,
     schedule,
     emergencies,
     rate,
@@ -25,7 +26,7 @@ router.post('/newProfessional', (req, res, next) => {
         country,
         longitude,
         latitude
-      }     // Enviar el objeto ya con sus claves (name, address...) desde el cliente
+      }
     }
   } = req.body
 
@@ -36,6 +37,7 @@ router.post('/newProfessional', (req, res, next) => {
       membershipNumber,
       phone,
       email,
+      password,
       schedule,
       emergencies,
       rate,
@@ -55,34 +57,36 @@ router.post('/newProfessional', (req, res, next) => {
         }
       }
     })
-    .then(newProfessional => res.json(newProfessional))
+    .then(newProfessional => res.status(201).json(newProfessional))
     .catch(err => {
       next(err)
     })
 })
 
+
 router.get('/', (req, res, next) => {
   Professional
     .find()
-    .then(allProfessionals => res.json(allProfessionals))
+    .then(allProfessionals => res.status(200).json(allProfessionals))
     .catch(err => {
       next(err)
     })
 })
+
 
 router.get('/:professionalId', (req, res, next) => {
 
   const { professionalId } = req.params
 
   if (!mongoose.Types.ObjectId.isValid(professionalId)) {
-    res.status(400).json({ message: 'Specified id is not valid' })
+    res.status(400).json({ message: 'Id de profesional no válido' })
     return
   }
 
   Professional
     .findById(professionalId)
     .populate('request')
-    .then(professional => res.json(professional))
+    .then(professional => res.status(200).json(professional))
     .catch(err => {
       next(err)
     })
@@ -92,12 +96,14 @@ router.get('/:professionalId', (req, res, next) => {
 router.put('/:professionalId', (req, res, next) => {
 
   const { professionalId } = req.params
+
   const {
     firstName,
     lastName,
     membershipNumber,
     phone,
     email,
+    password,
     schedule,
     emergencies,
     rate,
@@ -120,7 +126,7 @@ router.put('/:professionalId', (req, res, next) => {
 
 
   if (!mongoose.Types.ObjectId.isValid(professionalId)) {
-    res.status(400).json({ message: 'Specified id is not valid' })
+    res.status(400).json({ message: 'Id de profesional no válido' })
     return
   }
 
@@ -133,6 +139,7 @@ router.put('/:professionalId', (req, res, next) => {
         membershipNumber,
         phone,
         email,
+        password,
         schedule,
         emergencies,
         rate,
@@ -160,12 +167,13 @@ router.put('/:professionalId', (req, res, next) => {
     })
 })
 
+
 router.delete('/:professionalId', (req, res, next) => {
 
   const { professionalId } = req.params
 
   if (!mongoose.Types.ObjectId.isValid(professionalId)) {
-    res.status(400).json({ message: 'Specified id is not valid' })
+    res.status(400).json({ message: 'Id de profesional no válido' })
     return
   }
 

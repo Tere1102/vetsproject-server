@@ -9,7 +9,10 @@ const { isAuthenticated } = require('./../middleware/jwt.middleware')
 
 const saltRounds = 10
 
+
+
 router.post('/singup', (req, res, next) => {
+
     const { email, password } = req.body
 
     if (email === '' || password === '') {
@@ -29,15 +32,19 @@ router.post('/singup', (req, res, next) => {
         return
     }
 
-    Client.findOne({ email })
+    Client
+        .findOne({ email })
         .then((foundClient) => {
+
             if (foundClient) {
                 res.status(400).json({ message: 'El usuario ya existe' })
                 return
             }
+
             const salt = bcrypt.genSaltSync(saltRounds)
             const hashedPassword = bcrypt.hashSync(password, salt)
-            return Client.create({ email, password: hashedPassword }``)
+
+            return Client.create({ email, password: hashedPassword })
         })
 
         .then((createdClient) => {
@@ -47,9 +54,12 @@ router.post('/singup', (req, res, next) => {
         })
         .catch(err => {
             console.log(err)
-            res.status(500).json({ message: 'Error interno del servidor' })
+                .catch(err => {
+                    next(err)
+                })
         })
 })
+
 
 router.post('/login', (req, res, next) => {
     const { email, password } = req.body
@@ -59,29 +69,40 @@ router.post('/login', (req, res, next) => {
         return
     }
 
-    Client.findOne({ email })
+    Client
+        .findOne({ email })
         .then((foundClient) => {
+
             if (!foundClient) {
-                res.status(400).json({ message: 'Usuario no encontrado' })
+                res.status(401).json({ message: 'Usuario no encontrado' })
                 return
             }
+
             const passwordCorrect = bcrypt.compareSync(password, foundClient.password)
+
             if (passwordCorrect) {
+
                 const { _id, email, name } = foundClient
                 const payload = { _id, email, name }
+
                 const authToken = jwt.sign(
                     payload,
                     process.env.TOKEN_SECRET,
                     { algorithm: 'HS256', expiresIn: '6h' }
                 )
+
                 res.status(200).json({ authToken: authToken })
             }
+
             else {
                 res.status(401).json({ authToken: authToken })
             }
         })
-        .catch(err => res.status(500).json({ message: 'Error interno del servidor' }))
+        .catch(err => {
+            next(err)
+        })
 })
+
 
 router.get('/verify', isAuthenticated, (req, res, next) => {
     res.json({ userInfo: req.payload })
