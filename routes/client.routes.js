@@ -11,6 +11,7 @@ router.post('/newClient', (req, res, next) => {
         lastName,
         phone,
         email,
+        password,
         address: {
             street,
             zipCode,
@@ -20,7 +21,8 @@ router.post('/newClient', (req, res, next) => {
             latitude
         },
         image,
-        petNumber
+        pet,
+        request
     } = req.body
 
 
@@ -31,6 +33,7 @@ router.post('/newClient', (req, res, next) => {
             lastName,
             phone,
             email,
+            password,
             address: {
                 street,
                 zipCode,
@@ -42,7 +45,8 @@ router.post('/newClient', (req, res, next) => {
                 },
             },
             image,
-            petNumber
+            pet,
+            request
         })
         .then(newClient => res.status(201).json(newClient))
         .catch(err => {
@@ -80,6 +84,7 @@ router.put('/:clientId', (req, res, next) => {
         lastName,
         phone,
         email,
+        password,
         address: {
             street,
             zipCode,
@@ -89,7 +94,8 @@ router.put('/:clientId', (req, res, next) => {
             latitude
         },
         image,
-        petNumber
+        pet,
+        request
     } = req.body
 
     if (!mongoose.Types.ObjectId.isValid(clientId)) {
@@ -105,19 +111,20 @@ router.put('/:clientId', (req, res, next) => {
                 lastName,
                 phone,
                 email,
+                password,
                 address: {
                     street,
                     zipCode,
                     city,
                     country,
-                    location,
                     location: {
                         type: 'Point',
                         coordinates: [longitude, latitude]
                     },
                 },
                 image,
-                petNumber,
+                pet,
+                request
             },
             { new: true, runValidators: true }
         )

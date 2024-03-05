@@ -10,7 +10,7 @@ module.exports = app => {
     app.use("/api/professionals", professionalRouter)
 
     const petRouter = require("./pet.routes.js")
-    app.use("api/pets", petRouter)
+    app.use("/api/pets", petRouter)
 
     const requestRouter = require("./request.routes.js")
     app.use("/api/requests", requestRouter)
