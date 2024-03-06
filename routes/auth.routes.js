@@ -11,7 +11,7 @@ const saltRounds = 10
 
 
 
-router.post('/singup', (req, res, next) => {
+router.post('/signup', (req, res, next) => {
 
     const { email, password } = req.body
 
