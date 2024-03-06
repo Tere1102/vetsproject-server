@@ -4,17 +4,6 @@ const Client = require('./../models/Client.model')
 const Pet = require("../models/Pet.model")
 
 
-router.get('/', (req, res, next) => {
-
-    Pet
-        .find()
-        .then(allPets => res.status(200).json(allPets))
-        .catch(err => {
-            next(err)
-        })
-})
-
-
 router.post('/newPet', (req, res, next) => {
 
     const { owner, name, type, breed, birth, sex, weigth, chipNumber, chipOwner } = req.body
@@ -22,6 +11,17 @@ router.post('/newPet', (req, res, next) => {
     Pet
         .create({ owner, name, type, breed, birth, sex, weigth, chipNumber, chipOwner })
         .then(newPet => res.sendStatus(201).json(newPet))
+        .catch(err => {
+            next(err)
+        })
+})
+
+
+router.get('/', (req, res, next) => {
+
+    Pet
+        .find()
+        .then(allPets => res.status(200).json(allPets))
         .catch(err => {
             next(err)
         })
