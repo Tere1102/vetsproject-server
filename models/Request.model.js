@@ -40,8 +40,6 @@ const requestSchema = new Schema(
 
 
 
-requestSchema.index({ location: '2dsphere' })
-
 const Request = model("Request", requestSchema)
 
 module.exports = Request

@@ -56,6 +56,16 @@ router.post('/newClient', (req, res, next) => {
 })
 
 
+router.get('/', (req, res, next) => {
+    Client
+        .find()
+        .then(allClients => res.status(200).json(allClients))
+        .catch(err => {
+            next(err)
+        })
+})
+
+
 router.get('/:clientId', (req, res, next) => {
 
     const { clientId } = req.params
