@@ -2,6 +2,11 @@ const { Schema, model } = require("mongoose");
 
 const professionalSchema = new Schema(
     {
+        image: {
+            type: String,
+            default: '#'
+        },
+
         firstname: {
             type: String,
             //requiered: true,
