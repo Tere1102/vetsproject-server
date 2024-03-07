@@ -31,6 +31,12 @@ const professionalSchema = new Schema(
             //required: true
         },
 
+        phone2: {
+            type: Number,
+            match: /[0-9]{9}/,
+            //required: true
+        },
+
         email: {
             type: String,
             //required: [true, 'Email is required.'],
