@@ -1,6 +1,6 @@
 const router = require("express").Router()
 
-const uploader = require('./../middleware/cloudinary.middleware')
+const uploader = require('./../middleware/upload.middleware')
 
 router.post('/image', uploader.single('imageData'), (req, res) => {
 
