@@ -15,22 +15,22 @@ router.post('/signup', (req, res, next) => {
 
     const { email, password } = req.body
 
-    if (email === '' || password === '') {
-        res.status(400).json({ message: 'Introduce un email o password, por favor.' })
-        return
-    }
+    // if (email === '' || password === '') {
+    //     res.status(400).json({ message: 'Introduce un email o password, por favor.' })
+    //     return
+    // }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
-    if (!emailRegex.test(email)) {
-        res.status(400).json({ message: 'Introduce un email válido' })
-        return
-    }
+    // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
+    // if (!emailRegex.test(email)) {
+    //     res.status(400).json({ message: 'Introduce un email válido' })
+    //     return
+    // }
 
-    const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/
-    if (!passwordRegex.test(password)) {
-        res.status(400).json({ message: 'El password tiene que tener al menos, 6 carácteres, un número, una mayúscula y una minúscula' })
-        return
-    }
+    // const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/
+    // if (!passwordRegex.test(password)) {
+    //     res.status(400).json({ message: 'El password tiene que tener al menos, 6 carácteres, un número, una mayúscula y una minúscula' })
+    //     return
+    // }
 
     Client
         .findOne({ email })
@@ -95,7 +95,7 @@ router.post('/login', (req, res, next) => {
             }
 
             else {
-                res.status(401).json({ authToken: authToken })
+                res.status(401).json({ message: 'Password incorrect' })
             }
         })
         .catch(err => {
