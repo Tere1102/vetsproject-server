@@ -3,21 +3,22 @@ const { Schema, model } = require('mongoose')
 
 const requestSchema = new Schema(
     {
-        client: {
+        clients: {
             type: Schema.Types.ObjectId,
             ref: 'Client'
         },
-        professional: {
+        professionals: {
             type: Schema.Types.ObjectId,
             ref: 'Professional'
         },
-        pet: {
+        pets: {
             type: Schema.Types.ObjectId,
             ref: 'Pet'
         },
         status: {
             type: String,
-            enum: ['Pendiente', 'Resuelta']
+            enum: ['Pendiente', 'Resuelta'],
+            default: 'Pendiente'
         },
         question: {
             type: String,

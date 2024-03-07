@@ -1,6 +1,8 @@
 const router = require("express").Router()
 const mongoose = require('mongoose')
 const Request = require('./../models/Request.model.js')
+const Client = require('./../models/Client.model.js')
+
 
 
 router.post('/newRequest', (req, res, next) => {
