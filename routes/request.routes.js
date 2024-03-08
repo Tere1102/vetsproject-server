@@ -5,12 +5,13 @@ const Client = require('./../models/Client.model.js')
 
 
 
+
 router.post('/newRequest', (req, res, next) => {
 
-    const { client, professional, pet, status, question, answer, image } = req.body
+    const { professional, pet, status, question, answer, image } = req.body
 
     Request
-        .create({ client, professional, pet, status, question, answer, image })
+        .create({ clients: [], professional, pet, status, question, answer, image })
         // .populate("client", "pet", "professional")
         .then(newRequest => res.status(201).json(newRequest))
         .catch(err => {
@@ -23,6 +24,7 @@ router.get('/', (req, res, next) => {
 
     Request
         .find()
+        .populate('clients')
         // .populate("client", "pet", "professional")
         .then(allRequests => res.status(201).json(allRequests))
         .catch(err => {
@@ -42,6 +44,7 @@ router.get('/requestId', (req, res, next) => {
     }
     Request
         .findById(requestId)
+        .populate('clients')
         // .populate("client", "pet", "professional")
         .then(request => res.status(200).json(request))
         .catch(err => {
@@ -53,7 +56,7 @@ router.get('/requestId', (req, res, next) => {
 router.put('/requestId', (req, res, next) => {
 
     const { requestId } = req.params
-    const { client, professional, pet, status, question, answer, image } = req.body
+    const { client, professional, pet, status, question, answer, image, clients: [] } = req.body
 
     if (!mongoose.Types.ObjectId.isValid(requestId)) {
         res.status(400).json({ message: "Id de request no válido" })

@@ -1,7 +1,7 @@
 const router = require("express").Router()
 const mongoose = require('mongoose')
 const Client = require('./../models/Client.model')
-
+const Request = require('./../models/Request.model')
 
 router.post('/newClient', (req, res, next) => {
 
@@ -22,7 +22,7 @@ router.post('/newClient', (req, res, next) => {
         },
         image,
         pet,
-        request
+        requestId
     } = req.body
 
 
@@ -46,9 +46,14 @@ router.post('/newClient', (req, res, next) => {
             },
             image,
             pet,
-            request
+            request: requestId
         })
-        .then(newClient => res.status(201).json(newClient))
+        .then((newClient) => {
+            return Request.findByIdAndUpdate(requestId, {
+                $push: { client: newClient._id },
+            })
+        })
+        .then(response => res.status(201).json(response))
         .catch(err => {
             next(err)
         })
