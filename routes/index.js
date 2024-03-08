@@ -12,7 +12,7 @@ module.exports = app => {
     app.use("/api/professionals", isAuthenticated, professionalRouter)
 
     const petRouter = require("./pet.routes.js")
-    app.use("/api/pets", isAuthenticated, petRouter)
+    app.use("/api/pets", petRouter)
 
     const requestRouter = require("./request.routes.js")
     app.use("/api/requests", isAuthenticated, requestRouter)
