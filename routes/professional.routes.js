@@ -6,7 +6,6 @@ const Professional = require('./../models/professional.model.js')
 router.post('/newProfessional', (req, res, next) => {
 
   const {
-    image,
     firstName,
     lastName,
     membershipNumber,
@@ -33,7 +32,6 @@ router.post('/newProfessional', (req, res, next) => {
 
   Professional
     .create({
-      image,
       firstName,
       lastName,
       membershipNumber,
@@ -100,7 +98,6 @@ router.put('/:professionalId', (req, res, next) => {
   const { professionalId } = req.params
 
   const {
-    image,
     firstName,
     lastName,
     membershipNumber,
@@ -137,7 +134,6 @@ router.put('/:professionalId', (req, res, next) => {
     .findByIdAndUpdate(
       professionalId,
       {
-        image,
         firstName,
         lastName,
         membershipNumber,
