@@ -1,6 +1,6 @@
 const router = require("express").Router()
 const mongoose = require('mongoose')
-const Professional = require('./../models/professional.model.js')
+const Professional = require('./../models/Professional.model.js')
 
 
 router.post('/newProfessional', (req, res, next) => {
