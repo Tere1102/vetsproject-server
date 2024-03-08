@@ -15,10 +15,10 @@ router.post('/signup', (req, res, next) => {
 
     const { email, password } = req.body
 
-    // if (email === '' || password === '') {
-    //     res.status(400).json({ message: 'Introduce un email o password, por favor.' })
-    //     return
-    // }
+    if (email === '' || password === '') {
+        res.status(400).json({ message: 'Introduce un email o password, por favor.' })
+        return
+    }
 
     // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
     // if (!emailRegex.test(email)) {
@@ -52,12 +52,11 @@ router.post('/signup', (req, res, next) => {
             const client = { email, name, _id }
             res.status(201).json({ client: client })
         })
+
         .catch(err => {
-            console.log(err)
-                .catch(err => {
-                    next(err)
-                })
+            next(err)
         })
+
 })
 
 

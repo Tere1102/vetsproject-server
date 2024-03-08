@@ -82,6 +82,9 @@ const professionalSchema = new Schema(
             }
         },
 
+        specialty: {
+            type: String,
+        },
 
         schedule: {
             type: String,
