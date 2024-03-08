@@ -4,10 +4,10 @@ const professionalSchema = new Schema(
     {
         image: {
             type: String,
-            default: '#'
+            default: ""
         },
 
-        firstname: {
+        firstName: {
             type: String,
             //requiered: true,
             lowercase: true
