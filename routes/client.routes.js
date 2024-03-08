@@ -21,13 +21,11 @@ router.post('/newClient', (req, res, next) => {
             latitude
         },
         image,
-        pet,
-        requestId
+        pet
     } = req.body
 
 
     Client
-
         .create({
             firstName,
             lastName,
@@ -45,15 +43,9 @@ router.post('/newClient', (req, res, next) => {
                 },
             },
             image,
-            pet,
-            request: requestId
+            pet
         })
-        .then((newClient) => {
-            return Request.findByIdAndUpdate(requestId, {
-                $push: { client: newClient._id },
-            })
-        })
-        .then(response => res.status(201).json(response))
+        .then(newClient => res.status(201).json(newClient))
         .catch(err => {
             next(err)
         })
@@ -64,6 +56,7 @@ router.post('/newClient', (req, res, next) => {
 router.get('/', (req, res, next) => {
     Client
         .find()
+        .populate('pet')
         .then(allClients => res.status(200).json(allClients))
         .catch(err => {
             next(err)
@@ -109,8 +102,7 @@ router.put('/:clientId', (req, res, next) => {
             latitude
         },
         image,
-        pet,
-        request
+        pet
     } = req.body
 
     if (!mongoose.Types.ObjectId.isValid(clientId)) {
@@ -138,11 +130,11 @@ router.put('/:clientId', (req, res, next) => {
                     },
                 },
                 image,
-                pet,
-                request
+                pet
             },
             { new: true, runValidators: true }
         )
+        .populate('pet')
         .then(updatedClients => res.json(updatedClients))
         .catch(err => {
             next(err)

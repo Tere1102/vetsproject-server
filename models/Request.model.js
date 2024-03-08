@@ -3,15 +3,15 @@ const { Schema, model } = require('mongoose')
 
 const requestSchema = new Schema(
     {
-        clients: {
+        client: {
             type: Schema.Types.ObjectId,
             ref: 'Client'
         },
-        professionals: {
+        professional: {
             type: Schema.Types.ObjectId,
             ref: 'Professional'
         },
-        pets: {
+        pet: {
             type: Schema.Types.ObjectId,
             ref: 'Pet'
         },

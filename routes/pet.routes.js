@@ -3,14 +3,18 @@ const mongoose = require('mongoose')
 const Client = require('./../models/Client.model')
 const Pet = require("../models/Pet.model")
 
-
 router.post('/newPet', (req, res, next) => {
 
-    const { owner, name, type, breed, birth, sex, weigth, chipNumber, chipOwner } = req.body
+    const { owner, name, type, breed, birth, sex, weigth, chipNumber, chipOwner, clientId } = req.body
 
     Pet
-        .create({ owner, name, type, breed, birth, sex, weigth, chipNumber, chipOwner })
-        .then(newPet => res.sendStatus(201).json(newPet))
+        .create({ owner, name, type, breed, birth, sex, weigth, chipNumber, chipOwner, client: clientId })
+        .then(newPet => {
+            return Client.findByIdAndUpdate(clientId, {
+                $push: { pet: newPet._id }
+            })
+        })
+        .then((response) => res.json(response))
         .catch(err => {
             next(err)
         })

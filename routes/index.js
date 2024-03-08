@@ -6,16 +6,16 @@ module.exports = app => {
     //const { isAuthenticated } = require("./middleware/jwt.middleware")
 
     const clientRouter = require("./client.routes.js")
-    app.use("/api/clients", isAuthenticated, clientRouter)
+    app.use("/api/clients", clientRouter)
 
     const professionalRouter = require("./professional.routes.js")
-    app.use("/api/professionals", isAuthenticated, professionalRouter)
+    app.use("/api/professionals", professionalRouter)
 
     const petRouter = require("./pet.routes.js")
-    app.use("/api/pets", isAuthenticated, petRouter)
+    app.use("/api/pets", petRouter)
 
     const requestRouter = require("./request.routes.js")
-    app.use("/api/requests", isAuthenticated, requestRouter)
+    app.use("/api/requests", requestRouter)
 
     const authRouter = require("./auth.routes.js")
     app.use("/api/auth", authRouter)
