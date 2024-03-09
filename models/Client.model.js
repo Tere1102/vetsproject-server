@@ -62,7 +62,7 @@ const clientSchema = new Schema(
     request: {
       type: Schema.Types.ObjectId,
       ref: 'Request'
-    },
+    }
   },
   {
     timestamps: true
