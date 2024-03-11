@@ -19,7 +19,6 @@ router.post('/newProfessional', (req, res, next) => {
     reviews,
     clinic: {
       name,
-
       address: {
         street,
         zipCode,
@@ -46,7 +45,6 @@ router.post('/newProfessional', (req, res, next) => {
       reviews,
       clinic: {
         name,
-
         address: {
           street,
           zipCode,
@@ -113,7 +111,6 @@ router.put('/:professionalId', (req, res, next) => {
     reviews,
     clinic: {
       name,
-
       address: {
         street,
         zipCode,
@@ -150,7 +147,6 @@ router.put('/:professionalId', (req, res, next) => {
         reviews,
         clinic: {
           name,
-
           address: {
             street,
             zipCode,
