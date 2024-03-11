@@ -85,91 +85,91 @@ router.post('/signupclient', (req, res, next) => {
 
 
 
-// router.post('/signupprofessional', (req, res, next) => {
+router.post('/signupprofessional', (req, res, next) => {
 
-//     const {
-//         image,
-//         firstName,
-//         lastName,
-//         membershipNumber,
-//         phone,
-//         email,
-//         password,
-//         schedule,
-//         emergencies,
-//         rate,
-//         reviews,
-//         name,
-//         street,
-//         zipCode,
-//         city,
-//         country,
-//         longitude,
-//         latitude
-//     } = req.body
+    const {
+        image,
+        firstName,
+        lastName,
+        membershipNumber,
+        phone,
+        email,
+        password,
+        schedule,
+        emergencies,
+        rate,
+        reviews,
+        name,
+        street,
+        zipCode,
+        city,
+        country,
+        longitude,
+        latitude
+    } = req.body
 
-//     if (email === '' || password === '') {
-//         res.status(400).json({ message: 'Introduce un email o password, por favor.' })
-//         return
-//     }
+    if (email === '' || password === '') {
+        res.status(400).json({ message: 'Introduce un email o password, por favor.' })
+        return
+    }
 
-//     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
-//     if (!emailRegex.test(email)) {
-//         res.status(400).json({ message: 'Introduce un email válido' })
-//         return
-//     }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
+    if (!emailRegex.test(email)) {
+        res.status(400).json({ message: 'Introduce un email válido' })
+        return
+    }
 
-//     const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/
-//     if (!passwordRegex.test(password)) {
-//         res.status(400).json({ message: 'El password tiene que tener al menos, 6 carácteres, un número, una mayúscula y una minúscula' })
-//         return
-//     }
+    const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/
+    if (!passwordRegex.test(password)) {
+        res.status(400).json({ message: 'El password tiene que tener al menos, 6 carácteres, un número, una mayúscula y una minúscula' })
+        return
+    }
 
-//     Professional
-//         .findOne({ email })
-//         .then((foundProfessional) => {
+    Professional
+        .findOne({ email })
+        .then((foundProfessional) => {
 
-//             if (foundProfessional) {
-//                 res.status(400).json({ message: 'El usuario ya existe' })
-//                 return
-//             }
+            if (foundProfessional) {
+                res.status(400).json({ message: 'El usuario ya existe' })
+                return
+            }
 
-//             const salt = bcrypt.genSaltSync(saltRounds)
-//             const hashedPassword = bcrypt.hashSync(password, salt)
+            const salt = bcrypt.genSaltSync(saltRounds)
+            const hashedPassword = bcrypt.hashSync(password, salt)
 
-//             return Professional.create({
-//                 image,
-//                 firstName,
-//                 lastName,
-//                 membershipNumber,
-//                 phone,
-//                 email,
-//                 schedule,
-//                 emergencies,
-//                 rate,
-//                 reviews,
-//                 name,
-//                 street,
-//                 zipCode,
-//                 city,
-//                 country,
-//                 longitude,
-//                 latitude,
-//                 password: hashedPassword
-//             })
-//         })
+            return Professional.create({
+                image,
+                firstName,
+                lastName,
+                membershipNumber,
+                phone,
+                email,
+                schedule,
+                emergencies,
+                rate,
+                reviews,
+                name,
+                street,
+                zipCode,
+                city,
+                country,
+                longitude,
+                latitude,
+                password: hashedPassword
+            })
+        })
 
-//         .then((createdProfessional) => {
-//             const { email, name, _id } = createdProfessional
-//             const professional = { email, name, _id }
-//             res.status(201).json({ professional: professional })
-//         })
+        .then((createdProfessional) => {
+            const { email, name, _id } = createdProfessional
+            const professional = { email, name, _id }
+            res.status(201).json({ professional: professional })
+        })
 
-//         .catch(err => {
-//             next(err)
-//         })
+        .catch(err => {
+            next(err)
+        })
 
-// })
+})
 
 
 
