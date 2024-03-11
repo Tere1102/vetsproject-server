@@ -172,14 +172,7 @@ router.post('/signupprofessional', (req, res, next) => {
 
 
 
-
-
-
-
-
-
-
-router.post('/login', (req, res, next) => {
+router.post('/loginclient', (req, res, next) => {
     const { email, password } = req.body
 
     if (email === '' || password === '') {
@@ -221,6 +214,49 @@ router.post('/login', (req, res, next) => {
         })
 })
 
+
+
+router.post('/loginprofessional', (req, res, next) => {
+    const { email, password } = req.body
+
+    if (email === '' || password === '') {
+        res.status(400).json({ message: 'Introduce un email o password.' })
+        return
+    }
+
+    Professional
+        .findOne({ email })
+        .then((foundProfessional) => {
+
+            if (!foundProfessional) {
+                res.status(401).json({ message: 'Usuario no encontrado' })
+                return
+            }
+
+            const passwordCorrect = bcrypt.compareSync(password, foundProfessional.password)
+
+            if (passwordCorrect) {
+
+                const { _id, email, name } = foundProfessional
+                const payload = { _id, email, name }
+
+                const authToken = jwt.sign(
+                    payload,
+                    process.env.TOKEN_SECRET,
+                    { algorithm: 'HS256', expiresIn: '6h' }
+                )
+
+                res.status(200).json({ authToken: authToken })
+            }
+
+            else {
+                res.status(401).json({ message: 'Password incorrect' })
+            }
+        })
+        .catch(err => {
+            next(err)
+        })
+})
 
 router.get('/verify', isAuthenticated, (req, res, next) => {
     res.json({ userInfo: req.payload })
