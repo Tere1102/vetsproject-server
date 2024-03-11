@@ -172,7 +172,7 @@ router.post('/signupprofessional', (req, res, next) => {
 
 
 
-router.post('/loginclient', (req, res, next) => {
+router.post('/login/client', (req, res, next) => {
     const { email, password } = req.body
 
     if (email === '' || password === '') {
@@ -216,7 +216,7 @@ router.post('/loginclient', (req, res, next) => {
 
 
 
-router.post('/loginprofessional', (req, res, next) => {
+router.post('/login/professional', (req, res, next) => {
     const { email, password } = req.body
 
     if (email === '' || password === '') {
