@@ -85,8 +85,8 @@ router.post('/newClient', (req, res, next) => {
 
 
 
-router.post('/newProfessional', (req, res, next) => {
 
+router.post('/newProfessional', (req, res, next) => {
     const {
         image,
         firstName,
