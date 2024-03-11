@@ -91,7 +91,7 @@ const professionalSchema = new Schema(
         },
         role: {
             type: String,
-            enum: ["client", "professional"]
+            enum: ["Client", "Professional"]
         }
     },
     {

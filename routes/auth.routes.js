@@ -196,7 +196,7 @@ router.post('/login/client', (req, res, next) => {
             if (passwordCorrect) {
 
                 const { _id, email, name } = foundClient
-                const payload = { _id, email, name }
+                const payload = { _id, email, name, role: "Client" }
 
                 const authToken = jwt.sign(
                     payload,
@@ -240,7 +240,7 @@ router.post('/login/professional', (req, res, next) => {
             if (passwordCorrect) {
 
                 const { _id, email, name } = foundProfessional
-                const payload = { _id, email, name }
+                const payload = { _id, email, name, role: "Professional" }
 
                 const authToken = jwt.sign(
                     payload,
