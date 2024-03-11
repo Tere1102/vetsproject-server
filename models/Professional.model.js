@@ -9,43 +9,35 @@ const professionalSchema = new Schema(
 
         firstName: {
             type: String,
-            //requiered: true,
-            lowercase: true
         },
 
         lastName: {
             type: String,
-            //required: true,
             lowercase: true
         },
 
         membershipNumber: {
             type: Number,
             match: /[0-9]{4}/,
-            //requiered: true
         },
 
         phone: {
             type: Number,
             match: /[0-9]{9}/,
-            //required: true
         },
 
         phone2: {
             type: Number,
             match: /[0-9]{9}/,
-            //required: true
         },
 
         email: {
             type: String,
-            //required: [true, 'Email is required.'],
             unique: true
         },
 
         password: {
             type: String,
-            //required: true
         },
 
         clinic: {
@@ -56,19 +48,15 @@ const professionalSchema = new Schema(
             address: {
                 street: {
                     type: String,
-                    //required: true
                 },
                 zipCode: {
                     type: Number,
-                    //required: true
                 },
                 city: {
                     type: String,
-                    //required: true
                 },
                 contry: {
                     type: String,
-                    //required: true
                 },
                 location: {
                     type: {
@@ -76,7 +64,6 @@ const professionalSchema = new Schema(
                     },
                     coordinates: {
                         type: [Number],
-                        //requiered: true
                     }
                 }
             }
@@ -88,7 +75,6 @@ const professionalSchema = new Schema(
 
         schedule: {
             type: String,
-            //requiered: true
         },
 
         emergencies: {
