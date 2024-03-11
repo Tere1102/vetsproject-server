@@ -2,6 +2,10 @@ const { Schema, model } = require('mongoose')
 
 const petSchema = new Schema(
     {
+        image: {
+            type: "String",
+            default: "#"
+        },
         owner: {
             type: Schema.Types.ObjectId,
             ref: 'Client'
@@ -24,7 +28,7 @@ const petSchema = new Schema(
         },
         sex: {
             type: String,
-            enum: ["Male", "Female"],
+            enum: ["Hembra", "Macho"],
             //required: true
         },
         weight: {
