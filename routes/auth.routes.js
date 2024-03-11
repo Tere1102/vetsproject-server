@@ -88,6 +88,7 @@ router.post('/signupclient', (req, res, next) => {
 router.post('/signupprofessional', (req, res, next) => {
 
     const {
+        image,
         firstName,
         lastName,
         membershipNumber,
@@ -137,6 +138,7 @@ router.post('/signupprofessional', (req, res, next) => {
             const hashedPassword = bcrypt.hashSync(password, salt)
 
             return Professional.create({
+                image,
                 firstName,
                 lastName,
                 membershipNumber,
