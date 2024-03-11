@@ -88,6 +88,10 @@ const professionalSchema = new Schema(
         request: {
             type: Schema.Types.ObjectId,
             ref: 'Request'
+        },
+        role: {
+            type: String,
+            enum: ["client", "professional"]
         }
     },
     {
