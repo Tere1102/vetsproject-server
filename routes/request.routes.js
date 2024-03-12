@@ -33,14 +33,14 @@ router.get('/', (req, res, next) => {
 
 router.get('/:requestId', (req, res, next) => {
 
-    const { clientId } = req.params
+    const { requestId } = req.params
 
-    if (!mongoose.Types.ObjectId.isValid(clientId)) {
+    if (!mongoose.Types.ObjectId.isValid(requestId)) {
         res.status(400).json({ message: "Id de request no válido" })
         return
     }
     Request
-        .findById(clientId)
+        .findById(requestId)
         .populate('client pet professional')
         .then(request => res.status(200).json(request))
         .catch(err => {
