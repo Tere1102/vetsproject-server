@@ -61,7 +61,7 @@ router.post('/newClient', (req, res, next) => {
                     lastName,
                     phone,
                     email,
-                    password,
+                    password: hashedPassword,
                     address: {
                         street,
                         zipCode,
@@ -84,15 +84,12 @@ router.post('/newClient', (req, res, next) => {
                     next(err)
                 })
         })
-
 })
 
 
 
-
-
-
 router.post('/newProfessional', (req, res, next) => {
+
     const {
         image,
         firstName,
@@ -164,16 +161,7 @@ router.post('/newProfessional', (req, res, next) => {
                         }
                     }
                 })
-
                 .then(newProfessional => res.status(201).json(newProfessional))
-                .catch(err => {
-                    next(err)
-                })
-                // .then((createdProfessional) => {
-                //     const { email, name, _id } = createdProfessional
-                //     const professional = { email, name, _id }
-                //     res.status(201).json({ professional: professional })
-                // })
                 .catch(err => {
                     next(err)
                 })
@@ -202,8 +190,8 @@ router.post('/login/client', (req, res, next) => {
 
             if (passwordCorrect) {
 
-                const { _id, email, name } = foundClient
-                const payload = { _id, email, name, role: "Client" }
+                const { _id, email, firstName } = foundClient
+                const payload = { _id, email, firstName, role: "Client" }
 
                 const authToken = jwt.sign(
                     payload,
@@ -246,8 +234,8 @@ router.post('/login/professional', (req, res, next) => {
 
             if (passwordCorrect) {
 
-                const { _id, email, name } = foundProfessional
-                const payload = { _id, email, name, role: "Professional" }
+                const { _id, email, firstName } = foundProfessional
+                const payload = { _id, email, firstName, role: "Professional" }
 
                 const authToken = jwt.sign(
                     payload,

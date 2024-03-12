@@ -6,10 +6,10 @@ const Request = require('./../models/Request.model.js')
 
 router.post('/newRequest', (req, res, next) => {
 
-    const { client, professional, pet, status, question, response, image } = req.body
+    const { client, professional, pet, status, question, image } = req.body
 
     Request
-        .create({ client, professional, pet, status, question, response, image })
+        .create({ client, professional, pet, status, question, image })
         // .populate('Client Pet Professional')
         .then(newRequest => res.status(201).json(newRequest))
         .catch(err => {
