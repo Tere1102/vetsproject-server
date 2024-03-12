@@ -6,11 +6,11 @@ const Request = require('./../models/Request.model.js')
 
 router.post('/newRequest', (req, res, next) => {
 
-    const { client, professional, pet, status, question, answer, image } = req.body
+    const { client, professional, pet, status, question, response, image } = req.body
 
     Request
-        .create({ client, professional, pet, status, question, answer, image })
-        .populate('client', 'pet', 'professional')
+        .create({ client, professional, pet, status, question, response, image })
+        // .populate('Client Pet Professional')
         .then(newRequest => res.status(201).json(newRequest))
         .catch(err => {
             next(err)
@@ -22,7 +22,7 @@ router.get('/', (req, res, next) => {
 
     Request
         .find()
-        .populate('client', 'pet', 'professional')
+        .populate('client pet professional')
         .then(allRequests => res.status(201).json(allRequests))
         .catch(err => {
             next(err)
@@ -31,17 +31,17 @@ router.get('/', (req, res, next) => {
 })
 
 
-router.get('/requestId', (req, res, next) => {
+router.get('/:requestId', (req, res, next) => {
 
-    const { requestId } = req.params
+    const { clientId } = req.params
 
-    if (!mongoose.Types.ObjectId.isValid(requestId)) {
+    if (!mongoose.Types.ObjectId.isValid(clientId)) {
         res.status(400).json({ message: "Id de request no válido" })
         return
     }
     Request
-        .findById(requestId)
-        .populate('client', 'pet', 'professional')
+        .findById(clientId)
+        .populate('client pet professional')
         .then(request => res.status(200).json(request))
         .catch(err => {
             next(err)
@@ -49,7 +49,26 @@ router.get('/requestId', (req, res, next) => {
 })
 
 
-router.put('/requestId', (req, res, next) => {
+router.get('/client/:clientId', (req, res, next) => {
+
+    const { clientId } = req.params
+
+    if (!mongoose.Types.ObjectId.isValid(clientId)) {
+        res.status(400).json({ message: "Id de request no válido" })
+        return
+    }
+
+    Request
+        .find({ client: clientId })
+        .populate('client pet professional')
+        .then(request => res.status(200).json(request))
+        .catch(err => {
+            next(err)
+        })
+})
+
+
+router.put('/:requestId', (req, res, next) => {
 
     const { requestId } = req.params
     const { client, professional, pet, status, question, answer, image } = req.body
@@ -64,8 +83,8 @@ router.put('/requestId', (req, res, next) => {
             requestId,
             { client, professional, pet, status, question, answer, image },
             { new: true, runValidators: true }
-                .populate('client', 'pet', 'professional')
-                .then(updatedRequests => res.json(updatedRequests))
+                // .populate('client pet professional')
+                .then(updatedRequest => res.json(updatedRequest))
                 .catch(err => {
                     next(err)
                 })
@@ -73,7 +92,7 @@ router.put('/requestId', (req, res, next) => {
 })
 
 
-router.delete('/requestId', (req, res, next) => {
+router.delete('/:requestId', (req, res, next) => {
 
     const { requestId } = req.params
 
@@ -83,7 +102,7 @@ router.delete('/requestId', (req, res, next) => {
     }
     Request
         .findByIdAndDelete(requestId)
-        .populate('client', 'pet', 'professional')
+        // .populate('client pet professional')
         .then(() => res.sendStatus(204))
         .catch(err => {
             next(err)

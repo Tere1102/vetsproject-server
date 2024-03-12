@@ -5,11 +5,12 @@ const Pet = require("../models/Pet.model")
 
 router.post('/newPet', (req, res, next) => {
 
-    const { image, name, type, breed, birth, sex, weigth, chipNumber, chipOwner } = req.body
+    const { image, name, type, breed, birth, sex, weigth, chipNumber, chipOwner, owner } = req.body
 
     Pet
-        .create({ image, name, type, breed, birth, sex, weigth, chipNumber, chipOwner })
-        .then(newPet => res.status(201).json(newPet))
+        .create({ image, name, type, breed, birth, sex, weigth, chipNumber, chipOwner, owner })
+        .then(newPet => Client.findByIdAndUpdate(owner, { pet: newPet._id }))
+        .then(newPet => res.sendStatus(201))
         .catch(err => {
             next(err)
         })

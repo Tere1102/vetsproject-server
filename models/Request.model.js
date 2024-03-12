@@ -16,9 +16,8 @@ const requestSchema = new Schema(
             ref: 'Pet'
         },
         status: {
-            type: String,
-            enum: ['Pendiente', 'Resuelta'],
-            default: 'Pendiente'
+            type: Boolean,
+            default: false
         },
         question: {
             type: String,
