@@ -24,8 +24,8 @@ const requestSchema = new Schema(
             //required: true
         },
         response: {
-            type: Array,
-            //required: true
+            type: String,
+            default: ''
         },
         image: {
             type: String,
