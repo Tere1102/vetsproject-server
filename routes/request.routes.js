@@ -68,10 +68,32 @@ router.get('/client/:clientId', (req, res, next) => {
 })
 
 
+router.get('/professional/:professionalId', (req, res, next) => {
+
+    const { professionalId } = req.params
+
+    if (!mongoose.Types.ObjectId.isValid(professionalId)) {
+        res.status(400).json({ message: "Id de request no válido" })
+        return
+    }
+
+    Request
+        .find({ professional: professionalId })
+        .populate('client pet professional')
+        .then(request => res.status(200).json(request))
+        .catch(err => {
+            next(err)
+        })
+})
+
+
+
+
+
 router.put('/:requestId', (req, res, next) => {
 
     const { requestId } = req.params
-    const { client, professional, pet, status, question, answer, image } = req.body
+    const { client, professional, pet, status, question, answer, image, response } = req.body
 
     if (!mongoose.Types.ObjectId.isValid(requestId)) {
         res.status(400).json({ message: "Id de request no válido" })
@@ -81,14 +103,13 @@ router.put('/:requestId', (req, res, next) => {
     Request
         .findByIdAndUpdate(
             requestId,
-            { client, professional, pet, status, question, answer, image },
+            { client, professional, pet, status, question, answer, image, response },
             { new: true, runValidators: true }
-                // .populate('client pet professional')
-                .then(updatedRequest => res.json(updatedRequest))
-                .catch(err => {
-                    next(err)
-                })
         )
+        .then(updatedRequest => res.json(updatedRequest))
+        .catch(err => {
+            next(err)
+        })
 })
 
 
