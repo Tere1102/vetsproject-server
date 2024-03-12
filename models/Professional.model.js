@@ -45,6 +45,7 @@ const professionalSchema = new Schema(
             name: {
                 type: String
             },
+
             address: {
                 street: {
                     type: String,
@@ -58,14 +59,6 @@ const professionalSchema = new Schema(
                 contry: {
                     type: String,
                 },
-                location: {
-                    type: {
-                        type: String
-                    },
-                    coordinates: {
-                        type: [Number],
-                    }
-                }
             }
         },
 

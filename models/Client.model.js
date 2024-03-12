@@ -45,15 +45,7 @@ const clientSchema = new Schema(
         type: String,
         //required: true
       },
-      location: {
-        type: {
-          type: String
-        },
-        coordinates: {
-          type: [Number],
-          //required: true
-        }
-      }
+
     },
     pet: {
       type: Schema.Types.ObjectId,

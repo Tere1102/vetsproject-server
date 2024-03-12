@@ -55,28 +55,34 @@ router.post('/newClient', (req, res, next) => {
             const salt = bcrypt.genSaltSync(saltRounds)
             const hashedPassword = bcrypt.hashSync(password, salt)
 
-            return Client.create({
-                image,
-                email,
-                firstName,
-                lastName,
-                street,
-                phone,
-                city,
-                country,
-                zipCode,
-                password: hashedPassword
-            })
-        })
+            return Client
+                .create({
+                    firstName,
+                    lastName,
+                    phone,
+                    email,
+                    password,
+                    address: {
+                        street,
+                        zipCode,
+                        city,
+                        country,
+                    },
+                    image,
+                })
+                .then(newClient => res.status(201).json(newClient))
+                .catch(err => {
+                    next(err)
+                })
+                .then((createdClient) => {
+                    const { email, name, _id } = createdClient
+                    const client = { email, name, _id }
+                    res.status(201).json({ client: client })
+                })
 
-        .then((createdClient) => {
-            const { email, name, _id } = createdClient
-            const client = { email, name, _id }
-            res.status(201).json({ client: client })
-        })
-
-        .catch(err => {
-            next(err)
+                .catch(err => {
+                    next(err)
+                })
         })
 
 })
@@ -104,8 +110,6 @@ router.post('/newProfessional', (req, res, next) => {
         zipCode,
         city,
         country,
-        longitude,
-        latitude
     } = req.body
 
     if (email === '' || password === '') {
@@ -137,41 +141,44 @@ router.post('/newProfessional', (req, res, next) => {
             const salt = bcrypt.genSaltSync(saltRounds)
             const hashedPassword = bcrypt.hashSync(password, salt)
 
-            return Professional.create({
-                image,
-                firstName,
-                lastName,
-                membershipNumber,
-                phone,
-                email,
-                schedule,
-                emergencies,
-                rate,
-                reviews,
-                name,
-                street,
-                zipCode,
-                city,
-                country,
-                longitude,
-                latitude,
-                password: hashedPassword
-            })
-        })
+            return Professional
+                .create({
+                    image,
+                    firstName,
+                    lastName,
+                    membershipNumber,
+                    phone,
+                    email,
+                    password: hashedPassword,
+                    schedule,
+                    emergencies,
+                    rate,
+                    reviews,
+                    clinic: {
+                        name,
+                        address: {
+                            street,
+                            zipCode,
+                            city,
+                            country,
+                        }
+                    }
+                })
 
-        .then((createdProfessional) => {
-            const { email, name, _id } = createdProfessional
-            const professional = { email, name, _id }
-            res.status(201).json({ professional: professional })
+                .then(newProfessional => res.status(201).json(newProfessional))
+                .catch(err => {
+                    next(err)
+                })
+                // .then((createdProfessional) => {
+                //     const { email, name, _id } = createdProfessional
+                //     const professional = { email, name, _id }
+                //     res.status(201).json({ professional: professional })
+                // })
+                .catch(err => {
+                    next(err)
+                })
         })
-
-        .catch(err => {
-            next(err)
-        })
-
 })
-
-
 
 
 router.post('/login/client', (req, res, next) => {

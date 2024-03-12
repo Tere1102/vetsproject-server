@@ -3,65 +3,65 @@ const mongoose = require('mongoose')
 const Professional = require('./../models/Professional.model.js')
 
 
-router.post('/newProfessional', (req, res, next) => {
+// router.post('/newProfessional', (req, res, next) => {
 
-  const {
-    image,
-    firstName,
-    lastName,
-    membershipNumber,
-    phone,
-    email,
-    password,
-    schedule,
-    emergencies,
-    rate,
-    reviews,
-    clinic: {
-      name,
-      address: {
-        street,
-        zipCode,
-        city,
-        country,
-        longitude,
-        latitude
-      }
-    }
-  } = req.body
+//   const {
+//     image,
+//     firstName,
+//     lastName,
+//     membershipNumber,
+//     phone,
+//     email,
+//     password,
+//     schedule,
+//     emergencies,
+//     rate,
+//     reviews,
+//     clinic: {
+//       name,
+//       address: {
+//         street,
+//         zipCode,
+//         city,
+//         country,
+//         longitude,
+//         latitude
+//       }
+//     }
+//   } = req.body
 
-  Professional
-    .create({
-      image,
-      firstName,
-      lastName,
-      membershipNumber,
-      phone,
-      email,
-      password,
-      schedule,
-      emergencies,
-      rate,
-      reviews,
-      clinic: {
-        name,
-        address: {
-          street,
-          zipCode,
-          city,
-          country,
-          location: {
-            type: "Point",
-            coordinates: [longitude, latitude]
-          }
-        }
-      }
-    })
-    .then(newProfessional => res.status(201).json(newProfessional))
-    .catch(err => {
-      next(err)
-    })
-})
+//   Professional
+//     .create({
+//       image,
+//       firstName,
+//       lastName,
+//       membershipNumber,
+//       phone,
+//       email,
+//       password,
+//       schedule,
+//       emergencies,
+//       rate,
+//       reviews,
+//       clinic: {
+//         name,
+//         address: {
+//           street,
+//           zipCode,
+//           city,
+//           country,
+//           location: {
+//             type: "Point",
+//             coordinates: [longitude, latitude]
+//           }
+//         }
+//       }
+//     })
+//     .then(newProfessional => res.status(201).json(newProfessional))
+//     .catch(err => {
+//       next(err)
+//     })
+// })
 
 
 router.get('/', (req, res, next) => {
@@ -116,8 +116,6 @@ router.put('/:professionalId', (req, res, next) => {
         zipCode,
         city,
         country,
-        longitude,
-        latitude
       }
 
     }
@@ -152,10 +150,6 @@ router.put('/:professionalId', (req, res, next) => {
             zipCode,
             city,
             country,
-            location: {
-              type: "Point",
-              coordinates: [longitude, latitude]
-            }
           }
         }
       },
