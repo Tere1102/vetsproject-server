@@ -13,7 +13,6 @@ const professionalSchema = new Schema(
 
         lastName: {
             type: String,
-            lowercase: true
         },
 
         membershipNumber: {
