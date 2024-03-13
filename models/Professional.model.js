@@ -85,6 +85,14 @@ const professionalSchema = new Schema(
         role: {
             type: String,
             enum: ["Client", "Professional"]
+        },
+        location: {
+            type: {
+                type: String
+            },
+            coordinates: {
+                type: [Number],
+            }
         }
     },
     {

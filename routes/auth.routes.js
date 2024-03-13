@@ -95,6 +95,7 @@ router.post('/newProfessional', (req, res, next) => {
         firstName,
         lastName,
         membershipNumber,
+        coordinates,
         phone,
         email,
         password,
@@ -153,6 +154,10 @@ router.post('/newProfessional', (req, res, next) => {
                     emergencies,
                     rate,
                     reviews,
+                    location: {
+                        type: 'Point',
+                        coordinates
+                    },
                     clinic: {
                         name,
                         address: {
