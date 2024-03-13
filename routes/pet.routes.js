@@ -5,10 +5,10 @@ const Pet = require("../models/Pet.model")
 
 router.post('/newPet', (req, res, next) => {
 
-    const { image, name, type, breed, birth, sex, weigth, chipNumber, chipOwner, owner } = req.body
+    const { image, name, type, breed, birth, sex, weight, chipNumber, chipOwner, owner } = req.body
 
     Pet
-        .create({ image, name, type, breed, birth, sex, weigth, chipNumber, chipOwner, owner })
+        .create({ image, name, type, breed, birth, sex, weight, chipNumber, chipOwner, owner })
         .then(newPet => Client.findByIdAndUpdate(owner, { pet: newPet._id }))
         .then(newPet => res.sendStatus(201))
         .catch(err => {
@@ -49,7 +49,7 @@ router.get('/:petId', (req, res, next) => {
 router.put('/:petId', (req, res, next) => {
 
     const { petId } = req.params
-    const { image, owner, name, type, breed, birth, sex, weigth, chipNumber, chipOwner } = req.body
+    const { image, owner, name, type, breed, birth, sex, weight, chipNumber, chipOwner } = req.body
 
     if (!mongoose.Types.ObjectId.isValid(petId)) {
         res.status(400).json({ message: "Id de mascota no válido" })
@@ -59,7 +59,7 @@ router.put('/:petId', (req, res, next) => {
     Pet
         .findByIdAndUpdate(
             petId,
-            { image, owner, name, type, breed, birth, sex, weigth, chipNumber, chipOwner },
+            { image, owner, name, type, breed, birth, sex, weight, chipNumber, chipOwner },
             { new: true, runValidators: true })
         .then(updatedPets => res.json(updatedPets))
         .catch(err => {
