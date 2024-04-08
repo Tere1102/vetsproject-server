@@ -23,5 +23,3 @@ function getTokenFromHeaders(req) {
 module.exports = {
     isAuthenticated
 }
-
-// TODO!!!!!! crear rutas protegidas.
