@@ -10,7 +10,6 @@ router.post('/newRequest', (req, res, next) => {
 
     Request
         .create({ client, professional, pet, status, question, image })
-        // .populate('Client Pet Professional')
         .then(newRequest => res.status(201).json(newRequest))
         .catch(err => {
             next(err)
@@ -123,7 +122,6 @@ router.delete('/:requestId', (req, res, next) => {
     }
     Request
         .findByIdAndDelete(requestId)
-        // .populate('client pet professional')
         .then(() => res.sendStatus(204))
         .catch(err => {
             next(err)

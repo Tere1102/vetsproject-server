@@ -3,56 +3,6 @@ const mongoose = require('mongoose')
 const Client = require('./../models/Client.model')
 
 
-// router.post('/newClient', (req, res, next) => {
-
-
-//     const {
-//         firstName,
-//         lastName,
-//         phone,
-//         email,
-//         password,
-//         address: {
-//             street,
-//             zipCode,
-//             city,
-//             country,
-//             longitude,
-//             latitude
-//         },
-//         image,
-//         pet
-//     } = req.body
-
-
-//     Client
-//         .create({
-//             firstName,
-//             lastName,
-//             phone,
-//             email,
-//             password,
-//             address: {
-//                 street,
-//                 zipCode,
-//                 city,
-//                 country,
-//                 location: {
-//                     type: 'Point',
-//                     coordinates: [longitude, latitude]
-//                 },
-//             },
-//             image,
-//             pet
-//         })
-//         .then(newClient => res.status(201).json(newClient))
-//         .catch(err => {
-//             next(err)
-//         })
-
-// })
-
-
 router.get('/', (req, res, next) => {
     Client
         .find()

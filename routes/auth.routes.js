@@ -105,10 +105,7 @@ router.post('/newProfessional', (req, res, next) => {
         rate,
         reviews,
         name,
-        street,
-        zipCode,
-        city,
-        country,
+        address
     } = req.body
 
     if (email === '' || password === '') {
@@ -160,12 +157,7 @@ router.post('/newProfessional', (req, res, next) => {
                     },
                     clinic: {
                         name,
-                        address: {
-                            street,
-                            zipCode,
-                            city,
-                            country,
-                        }
+                        address
                     }
                 })
                 .then(newProfessional => res.status(201).json(newProfessional))

@@ -8,7 +8,7 @@ const professionalSchema = new Schema(
         },
 
         firstName: {
-            type: String,
+            type: String
         },
 
         lastName: {
@@ -17,26 +17,28 @@ const professionalSchema = new Schema(
 
         membershipNumber: {
             type: Number,
-            match: /[0-9]{4}/,
+            match: /[0-9]{4}/
         },
 
         phone: {
             type: Number,
-            match: /[0-9]{9}/,
+            match: /[0-9]{9}/
         },
 
         phone2: {
             type: Number,
-            match: /[0-9]{9}/,
+            match: /[0-9]{9}/
         },
 
         email: {
             type: String,
-            unique: true
+            unique: true,
+            required: true
         },
 
         password: {
             type: String,
+            required: true
         },
 
         clinic: {
@@ -46,27 +48,17 @@ const professionalSchema = new Schema(
             },
 
             address: {
-                street: {
-                    type: String,
-                },
-                zipCode: {
-                    type: Number,
-                },
-                city: {
-                    type: String,
-                },
-                contry: {
-                    type: String,
-                },
+                type: String
             }
+
         },
 
         specialty: {
-            type: String,
+            type: String
         },
 
         schedule: {
-            type: String,
+            type: String
         },
 
         emergencies: {

@@ -50,13 +50,7 @@ router.put('/:professionalId', (req, res, next) => {
     reviews,
     clinic: {
       name,
-      address: {
-        street,
-        zipCode,
-        city,
-        country,
-      }
-
+      address
     }
 
   } = req.body
@@ -84,12 +78,7 @@ router.put('/:professionalId', (req, res, next) => {
         reviews,
         clinic: {
           name,
-          address: {
-            street,
-            zipCode,
-            city,
-            country,
-          }
+          address
         }
       },
       { new: true, runValidators: true })

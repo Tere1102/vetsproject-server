@@ -4,25 +4,25 @@ const clientSchema = new Schema(
   {
     firstName: {
       type: String,
-      //required: true
+      required: true
     },
     lastName: {
       type: String,
-      //required: true
+      required: true
     },
     phone: {
       type: Number,
       match: /[0-9]{9}/,
-      //required: true
+      required: true
     },
     email: {
       type: String,
-      //required: [true, 'Email is required.'],
+      required: [true, 'Email is required.'],
       unique: true,
     },
     password: {
       type: String,
-      //required: true
+      required: true
     },
     image: {
       type: String,
@@ -31,19 +31,19 @@ const clientSchema = new Schema(
     address: {
       street: {
         type: String,
-        //required: true
+        required: true
       },
       zipCode: {
         type: Number,
-        //required: true
+        required: true
       },
       city: {
         type: String,
-        //required: true
+        required: true
       },
       country: {
         type: String,
-        //required: true
+        required: true
       },
 
     },
