@@ -2,8 +2,7 @@ const { isAuthenticated } = require("../middleware/jwt.middleware.js")
 
 module.exports = app => {
 
-    // TODO: incluir isAuthenticated en todas las routes
-    //const { isAuthenticated } = require("./middleware/jwt.middleware")
+
 
     const clientRouter = require("./client.routes.js")
     app.use("/api/clients", isAuthenticated, clientRouter)
