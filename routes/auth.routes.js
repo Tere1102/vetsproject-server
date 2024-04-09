@@ -19,11 +19,8 @@ router.post('/newClient', (req, res, next) => {
         password,
         firstName,
         lastName,
-        street,
+        address,
         phone,
-        city,
-        country,
-        zipCode
     } = req.body
 
     if (email === '' || password === '') {
@@ -62,12 +59,7 @@ router.post('/newClient', (req, res, next) => {
                     phone,
                     email,
                     password: hashedPassword,
-                    address: {
-                        street,
-                        zipCode,
-                        city,
-                        country,
-                    },
+                    address,
                     image,
                 })
                 .then(newClient => res.status(201).json(newClient))

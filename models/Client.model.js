@@ -29,23 +29,16 @@ const clientSchema = new Schema(
       default: '#'
     },
     address: {
-      street: {
-        type: String,
-        required: true
+      type: String,
+      required: true
+    },
+    location: {
+      type: {
+        type: String
       },
-      zipCode: {
-        type: Number,
-        required: true
-      },
-      city: {
-        type: String,
-        required: true
-      },
-      country: {
-        type: String,
-        required: true
-      },
-
+      coordinates: {
+        type: [Number],
+      }
     },
     pet: {
       type: Schema.Types.ObjectId,

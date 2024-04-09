@@ -43,14 +43,7 @@ router.put('/:clientId', (req, res, next) => {
         phone,
         email,
         password,
-        address: {
-            street,
-            zipCode,
-            city,
-            country,
-            longitude,
-            latitude
-        },
+        address,
         image,
         pet
     } = req.body
@@ -69,16 +62,7 @@ router.put('/:clientId', (req, res, next) => {
                 phone,
                 email,
                 password,
-                address: {
-                    street,
-                    zipCode,
-                    city,
-                    country,
-                    location: {
-                        type: 'Point',
-                        coordinates: [longitude, latitude]
-                    },
-                },
+                address,
                 image,
                 pet
             },
