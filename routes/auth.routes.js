@@ -10,7 +10,6 @@ const { isAuthenticated } = require('./../middleware/jwt.middleware')
 const saltRounds = 10
 
 
-
 router.post('/newClient', (req, res, next) => {
 
     const {
